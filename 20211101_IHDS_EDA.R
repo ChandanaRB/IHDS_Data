@@ -13,7 +13,7 @@
 ##############################################################
 
 
-## Clear Environment
+## Clear the Environment
 rm(list=ls())
 
 ## Load Individual Survey data
