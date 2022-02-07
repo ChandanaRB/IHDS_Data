@@ -2,7 +2,7 @@
 Analysis of IHDS India data done in R
 
 Script Purpose:
-Exploratory Statistics of daughter-in-laws in India
+Exploratory Statistics of daughters-in-law in India
 
 Data Source:
 https://ihds.umd.edu/
