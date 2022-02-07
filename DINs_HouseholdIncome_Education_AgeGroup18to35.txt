@@ -1,5 +1,0 @@
-              Df Sum Sq Mean Sq F value Pr(>F)    
-INCOMEPC.y     1  20367   20367    1036 <2e-16 ***
-Residuals   8487 166833      20                   
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
