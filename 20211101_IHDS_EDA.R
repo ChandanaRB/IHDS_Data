@@ -13,7 +13,7 @@
 ##############################################################
 
 
-## Clear the Environment
+## Clear Environment
 rm(list=ls())
 
 ## Load Individual Survey data
@@ -50,6 +50,7 @@ summary(df_DIN$RO7)
 # 1. Age                         ::  RO5
 ##############################################################
 age = df_DIN$RO5
+
 summary(df_DIN$RO5)
 
 jpeg("D:/71_Chandana/2011_12/IHDS_DataAnalysis/DINsAge.jpg", width = 1000, height = 600)
@@ -79,11 +80,13 @@ dev.off()
 ##############################################################
 df_imp = df_DIN[, c('INCOMEPC.y', 'EDUC7', 'RO5', 'IDHH')]
 
+# Define Age Group Limits
 min_Age = 50
 max_Age = 65
 
 df_imp = subset(df_imp, EDUC7 != "NA" & RO5 >= min_Age & RO5 < max_Age)
 
+# Create a new column with numerical years of education from the tags
 df_imp$EDUC7_Years = sapply(df_imp$EDUC7, switch,
                             "(00) none 0" = 0,
                             "(03) 1-4 3"  = 3,
@@ -94,10 +97,12 @@ df_imp$EDUC7_Years = sapply(df_imp$EDUC7, switch,
                             "(15) graduate 15" = 15,
                             "(16) some post-grad 16" = 16)
 
+# Take the mean of years of education amongst the daughters-in-law per household and round it off to the nearest initial class definition
 df_imp_agg = aggregate(cbind(EDUC7_Years,INCOMEPC.y) ~ IDHH, df_imp, mean)
 class_YoEdu = c(0, 3, 5, 8, 10, 12, 15, 16)
 df_imp_agg$EDUC7_Years_class = sapply(df_imp_agg$EDUC7_Years, function(x) class_YoEdu[order(abs(x - class_YoEdu))][1])
 
+# Prepare the dataframe for boxplot
 df_imp_agg$EDUC7_Years_char = as.character(df_imp_agg$EDUC7_Years_class)
 df_imp_agg$EDUC7_Years_char <- factor(df_imp_agg$EDUC7_Years_char, levels = c(0, 3, 5, 8, 10, 12, 15, 16))  
 
@@ -138,6 +143,7 @@ df_imp = df_DIN[, c('INCOMEPC.y', 'EDUC7', 'RO5', 'IDHH', 'RO7')]
 
 df_imp = subset(df_imp, EDUC7 != "NA" & RO5 >= min_Age & RO5 < max_Age & RO7 == "(11) Housework 11")
 
+# Create a new column with numerical years of education from the tags
 df_imp$EDUC7_Years = sapply(df_imp$EDUC7, switch,
                             "(00) none 0" = 0,
                             "(03) 1-4 3"  = 3,
@@ -148,10 +154,12 @@ df_imp$EDUC7_Years = sapply(df_imp$EDUC7, switch,
                             "(15) graduate 15" = 15,
                             "(16) some post-grad 16" = 16)
 
+# Take the mean of years of education amongst the daughters-in-law per household and round it off to the nearest initial class definition
 df_imp_agg = aggregate(cbind(EDUC7_Years,INCOMEPC.y) ~ IDHH, df_imp, mean)
 class_YoEdu = c(0, 3, 5, 8, 10, 12, 15, 16)
 df_imp_agg$EDUC7_Years_class = sapply(df_imp_agg$EDUC7_Years, function(x) class_YoEdu[order(abs(x - class_YoEdu))][1])
 
+# Prepare the dataframe for boxplot
 df_imp_agg$EDUC7_Years_char = as.character(df_imp_agg$EDUC7_Years_class)
 df_imp_agg$EDUC7_Years_char <- factor(df_imp_agg$EDUC7_Years_char, levels = c(0, 3, 5, 8, 10, 12, 15, 16))  
 
